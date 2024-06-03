@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "chromedriver": "^96.0.0" // Ensure this version is available or adjust accordingly.
+    "chromedriver": "^96.0.0"  // Adjust the version number if necessary
   },
   "devDependencies": {
     "jest": "^26.6.3"
