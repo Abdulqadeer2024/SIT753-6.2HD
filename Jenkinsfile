@@ -14,37 +14,42 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                // Use 'bat' for Batch commands in Windows
+                bat 'npm install'
                 dir('client') {
-                    sh 'npm install'
+                    bat 'npm install'
                 }
             }
         }
 
         stage('Build Backend') {
             steps {
-                sh 'npm run build'
+                // Use 'bat' instead of 'sh' for Batch commands in Windows
+                bat 'npm run build'
             }
         }
 
         stage('Build Frontend') {
             steps {
                 dir('client') {
-                    sh 'npm run build'
+                    bat 'npm run build'
                 }
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test'
+                // Assuming npm test is set up to run tests in your package.json
+                bat 'npm test'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Add deployment steps here, e.g., Docker commands or pushing to a server
+                // Example of a Windows batch command for deployment
+                // Ensure you have the correct command here for your deployment
+                bat 'echo Deployment step here'
             }
         }
     }
