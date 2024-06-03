@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "jest --coverage --reporters=default --reporters=jest-junit", // Assumes jest and jest-junit are installed
+    "test": "jest --coverage --reporters=default --reporters=jest-junit",
     "build": "docker build -t yourusername/blog-app ."
   },
   "keywords": ["blog", "nodejs", "express"],
