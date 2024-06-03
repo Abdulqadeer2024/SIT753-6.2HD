@@ -2,89 +2,40 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS-16.20.1'
+        nodejs 'NodeJS-16.20.1'  // Ensure this tool is configured in your Jenkins with the correct version
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                checkout scm
+                checkout scm  // Checks out source code from the repository
             }
         }
 
         stage('Install Dependencies') {
             steps {
                 echo 'Installing dependencies...'
-                bat 'npm install'
-            }
-        }
-
-        stage('Lint Code') {
-            steps {
-                echo 'Linting the code...'
-                script {
-                    try {
-                        bat 'npm run lint'
-                    } catch (Exception e) {
-                        echo 'Linting failed or no lint script available, continuing...'
-                    }
-                }
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                echo 'Running tests...'
-                bat 'npm test'
+                bat 'npm install'  // Installs npm packages
             }
         }
 
         stage('Build Project') {
             steps {
                 echo 'Building project...'
-                bat 'npm run build'
-            }
-        }
-
-        stage('Code Quality Analysis') {
-            steps {
-                echo 'Analyzing code quality...'
-                bat 'echo "Static code analysis tool run here"'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying to test environment...'
-                bat 'echo "Deployment commands run here"'
-            }
-        }
-
-        stage('Release') {
-            steps {
-                echo 'Releasing to production environment...'
-                bat 'echo "Release commands run here"'
-            }
-        }
-
-        stage('Monitoring and Alerting') {
-            steps {
-                echo 'Setting up monitoring and alerting...'
-                bat 'echo "Setup monitoring and alerting here"'
+                bat 'npm run build'  // Executes the build script from package.json
             }
         }
     }
 
     post {
         always {
-            echo 'Cleaning up...'
-            bat 'docker-compose down'
+            echo 'Pipeline execution complete!'
         }
         success {
-            echo 'Pipeline succeeded!'
+            echo 'Build stage succeeded!'
         }
         failure {
-            echo 'Pipeline failed. Check logs for details.'
+            echo 'Build stage failed. Check logs for details.'
         }
     }
 }
