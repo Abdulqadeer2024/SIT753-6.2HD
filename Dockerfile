@@ -1,15 +1,18 @@
-# Use a specific version of node
+# Use the official Node.js 16 image.
 FROM node:16
 
-# Create app directory
+# Create and set the working directory.
 WORKDIR /usr/src/app
 
-# Install npm at the latest version
-RUN npm install -g npm@latest
-
-# Install app dependencies
+# Update npm to the latest version and install dependencies.
 COPY package*.json ./
-RUN npm install
+RUN npm install -g npm@latest && npm install
 
-# Bundle app source
+# Copy the rest of your application code.
 COPY . .
+
+# Expose the port the app runs on.
+EXPOSE 3000
+
+# Command to run your app.
+CMD ["node", "server.js"]
