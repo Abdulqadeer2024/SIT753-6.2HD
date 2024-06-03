@@ -1,15 +1,21 @@
 {
   "name": "blog-app",
   "version": "1.0.0",
-  "description": "A blog application",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo 'Building...'"
+    "build": "docker build -t yourusername/blog-app .",
+    "test": "echo \"Running JUnit tests...\" && mvn test"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "chromedriver": "^96.0.0" // Make sure this version is correct and exists
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.1"
   }
 }
