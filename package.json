@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Running JUnit tests...\" && mvn test",
-    "build": "docker build -t yourusername/blog-app ."
+    "build": "docker build -t yourusername/blog-app .",
+    "test": "jest",
+    "selenium-test": "node selenium-test.js"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +17,10 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.4.1"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "selenium-webdriver": "^4.0.0",
+    "chromedriver": "^95.0.0"
   }
 }
