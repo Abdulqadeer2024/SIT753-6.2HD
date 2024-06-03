@@ -22,7 +22,7 @@ pipeline {
         stage('Build Project') {
             steps {
                 echo 'Building project...'
-                bat 'npm run build'  // Executes the build script from package.json
+                bat 'npm run build'  // Executes the build script defined in package.json
             }
         }
     }
