@@ -1,14 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        // Define tools if needed, e.g., nodejs 'NodeJS-16.x'
-    }
-
-    environment {
-        // Define environment variables if needed, e.g., DOCKER_IMAGE = 'yourusername/blog-app'
-    }
-
     stages {
         stage('Checkout Code') {
             steps {
@@ -18,8 +10,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                dir('path/to/your/app') {
-                    // Adjust the path according to your project structure
+                dir('path/to/your/app') { // Adjust the path according to your project structure
                     script {
                         // Using script to handle potential npm install issues
                         def npmInstallStatus = sh(script: 'npm install', returnStatus: true)
