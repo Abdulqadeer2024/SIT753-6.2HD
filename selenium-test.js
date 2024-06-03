@@ -5,15 +5,19 @@ describe('Blog Application', () => {
   let driver;
 
   beforeAll(async () => {
-    // Set up the Selenium WebDriver
+    const service = new chrome.ServiceBuilder()
+      .loggingTo('./chromedriver.log')
+      .enableVerboseLogging()
+      .build();
+
     driver = await new Builder()
       .forBrowser('chrome')
       .setChromeOptions(new chrome.Options().headless())
+      .setChromeService(service)
       .build();
   });
 
   afterAll(async () => {
-    // Quit the WebDriver after the tests are done
     await driver.quit();
   });
 
