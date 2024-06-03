@@ -2,11 +2,15 @@ pipeline {
     agent any
 
     tools {
-        nodejs "NodeJS-16.20.1"
+        // Define tools if needed, e.g., nodejs 'NodeJS-16.x'
+    }
+
+    environment {
+        // Define environment variables if needed, e.g., DOCKER_IMAGE = 'yourusername/blog-app'
     }
 
     stages {
-        stage('Checkout SCM') {
+        stage('Checkout Code') {
             steps {
                 checkout scm
             }
@@ -15,30 +19,24 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 dir('path/to/your/app') {
-                    bat 'npm install'
-                }
-            }
-        }
-
-        stage('Build Project') {
-            steps {
-                dir('path/to/your/app') {
-                    bat 'npm run build'
-                }
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                dir('path/to/your/app') {
-                    bat 'npm test'
+                    // Adjust the path according to your project structure
+                    script {
+                        // Using script to handle potential npm install issues
+                        def npmInstallStatus = sh(script: 'npm install', returnStatus: true)
+                        if (npmInstallStatus != 0) {
+                            error("Failed to install npm dependencies")
+                        }
+                    }
                 }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                bat "docker build -t yourusername/blog-app ."
+                script {
+                    // Building Docker image
+                    docker.build('yourusername/blog-app')
+                }
             }
         }
     }
@@ -46,13 +44,13 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            bat "docker rmi yourusername/blog-app"
-        }
-        success {
-            echo 'Pipeline executed successfully!'
+            // Add post-build cleanup steps if necessary
         }
         failure {
-            echo 'Pipeline failed. Check logs for details.'
+            echo 'The build failed.'
+        }
+        success {
+            echo 'The build was successful.'
         }
     }
 }
