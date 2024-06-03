@@ -20,6 +20,8 @@
   },
   "devDependencies": {
     "jest": "^29.0.1",
-    "eslint": "^8.0.0"
+    "eslint": "^8.0.0",
+    "selenium-webdriver": "^4.10.0",
+    "chromedriver": "^114.0.0"
   }
 }
