@@ -1,13 +1,13 @@
-const { Builder, By, until } = require('selenium-webdriver');
-require('chromedriver');
+// selenium-test.js
+const { Builder, By, Key, until } = require('selenium-webdriver');
 
 (async function example() {
-  let driver = await new Builder().forBrowser('chrome').build();
-  try {
-    await driver.get('http://localhost:3000');
-    let title = await driver.getTitle();
-    console.log('Page Title is: ' + title);
-  } finally {
-    await driver.quit();
-  }
+    let driver = await new Builder().forBrowser('firefox').build();
+    try {
+        await driver.get('http://www.google.com');
+        await driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);
+        await driver.wait(until.titleIs('webdriver - Google Search'), 1000);
+    } finally {
+        await driver.quit();
+    }
 })();
