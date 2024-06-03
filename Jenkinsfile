@@ -29,7 +29,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 echo 'Running tests...'
-                bat 'mvn test' // or 'gradle test' depending on your build tool
+                bat 'npm test'
             }
         }
     }
