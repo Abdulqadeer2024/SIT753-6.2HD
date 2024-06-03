@@ -2,63 +2,54 @@ pipeline {
     agent any
 
     tools {
+        // Specify the Node.js version configured in Jenkins
         nodejs 'NodeJS-12.x'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                git 'https://github.com/Abdulqadeer2024/SIT753-6.2HD.git'
+                // This step checks out the code from your Git repository
+                checkout scm
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                // Replace sh with bat for Windows compatibility
-                bat 'npm install'
-                dir('client') {
-                    bat 'npm install'
-                }
+                // Install NPM dependencies using 'npm install'
+                echo 'Installing dependencies...'
+                bat 'npm install' // Use 'bat' for Windows. Replace with 'sh' for Unix/Linux.
             }
         }
 
-        stage('Build Backend') {
+        stage('Run Tests') {
             steps {
-                // Replace sh with bat for Windows compatibility
-                bat 'npm run build'
+                // Run tests using your npm test script
+                echo 'Running tests...'
+                bat 'npm test' // Use 'bat' for Windows. Replace with 'sh' for Unix/Linux.
             }
         }
 
-        stage('Build Frontend') {
+        stage('Build Project') {
             steps {
-                dir('client') {
-                    // Replace sh with bat for Windows compatibility
-                    bat 'npm run build'
-                }
-            }
-        }
-
-        stage('Test') {
-            steps {
-                // Replace sh with bat for Windows compatibility
-                bat 'npm test'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the application...'
-                // Modify or add Windows compatible deployment commands
-                bat 'echo Deploy command here'
+                // Build your project using your npm build script
+                echo 'Building project...'
+                bat 'npm run build' // Use 'bat' for Windows. Replace with 'sh' for Unix/Linux.
             }
         }
     }
 
     post {
+        always {
+            // This block executes after the pipeline run, regardless of the outcome
+            echo 'Pipeline execution complete!'
+        }
         success {
-            echo 'Pipeline completed successfully!'
+            // This block executes only if the pipeline run is successful
+            echo 'Pipeline succeeded!'
         }
         failure {
+            // This block executes only if the pipeline run fails
             echo 'Pipeline failed!'
         }
     }
