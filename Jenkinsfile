@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS-16.20.1'
+        nodejs 'NodeJS-16.20.1' // Ensure this matches the name of your Node.js installation in Jenkins
     }
 
     stages {
@@ -16,6 +16,7 @@ pipeline {
                 script {
                     def nodeHome = tool name: 'NodeJS-16.20.1', type: 'NodeJSInstallation'
                     env.PATH = "${nodeHome}/bin:${env.PATH}"
+                    bat 'node -v' // Check Node.js version to verify the correct tool is used
                 }
                 bat 'npm install'
             }
