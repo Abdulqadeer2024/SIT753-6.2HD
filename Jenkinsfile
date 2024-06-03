@@ -2,40 +2,43 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS-16.20.1'
-    }
-
-    environment {
-        DOCKER_IMAGE = 'yourusername/blog-app'
+        nodejs "NodeJS-16.20.1"
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout SCM') {
             steps {
-                git 'https://github.com/Abdulqadeer2024/SIT753-6.2HD.git'
-            }
-        }
-        
-        stage('Build Project') {
-            steps {
-                script {
-                    // Building Docker Image
-                    bat "docker build -t ${DOCKER_IMAGE} ."
-                }
-            }
-        }
-        
-        stage('Run Tests') {
-            steps {
-                // This can run Jest or other Node.js test frameworks
-                bat 'npm test'
+                checkout scm
             }
         }
 
-        stage('Run Selenium Tests') {
+        stage('Install Dependencies') {
             steps {
-                // Running Selenium tests
-                bat 'npm run selenium-test'
+                dir('path/to/your/app') {
+                    bat 'npm install'
+                }
+            }
+        }
+
+        stage('Build Project') {
+            steps {
+                dir('path/to/your/app') {
+                    bat 'npm run build'
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                dir('path/to/your/app') {
+                    bat 'npm test'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                bat "docker build -t yourusername/blog-app ."
             }
         }
     }
@@ -43,7 +46,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            bat 'docker rmi ${DOCKER_IMAGE}'
+            bat "docker rmi yourusername/blog-app"
         }
         success {
             echo 'Pipeline executed successfully!'
