@@ -1,13 +1,27 @@
-// selenium-test.js
-const { Builder, By, Key, until } = require('selenium-webdriver');
+const { Builder, By, until } = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
 
-(async function example() {
-    let driver = await new Builder().forBrowser('firefox').build();
-    try {
-        await driver.get('http://www.google.com');
-        await driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);
-        await driver.wait(until.titleIs('webdriver - Google Search'), 1000);
-    } finally {
-        await driver.quit();
-    }
-})();
+describe('Blog Application', () => {
+  let driver;
+
+  beforeAll(async () => {
+    // Set up the Selenium WebDriver
+    driver = await new Builder()
+      .forBrowser('chrome')
+      .setChromeOptions(new chrome.Options().headless())
+      .build();
+  });
+
+  afterAll(async () => {
+    // Quit the WebDriver after the tests are done
+    await driver.quit();
+  });
+
+  it('should load the home page', async () => {
+    await driver.get('http://localhost:3000');
+    const title = await driver.getTitle();
+    expect(title).toEqual('Blog Application');
+  });
+
+  // Add more test cases for your application
+});
