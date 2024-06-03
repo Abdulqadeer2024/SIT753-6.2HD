@@ -1,20 +1,15 @@
-# Use an official Node runtime as a parent image
+# Use a specific version of node
 FROM node:16
 
-# Set the working directory in the container
+# Create app directory
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Install npm at the latest version
+RUN npm install -g npm@latest
 
-# Install dependencies
+# Install app dependencies
+COPY package*.json ./
 RUN npm install
 
-# Copy the rest of the application code
+# Bundle app source
 COPY . .
-
-# Expose port 3000
-EXPOSE 3000
-
-# Command to run the app
-CMD ["node", "index.js"]
