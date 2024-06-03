@@ -19,8 +19,9 @@
     "mongoose": "^8.4.1"
   },
   "devDependencies": {
-    "jest": "^29.0.1",
-    "eslint": "^8.0.0",
-    "jest-junit": "^14.0.0"
-  }
+  "jest": "^29.0.1",
+  "eslint": "^8.0.0",
+  "jest-junit": "^14.0.0",
+  "supertest": "^6.2.2"  // Make sure the version is compatible with your other packages
+}
 }
