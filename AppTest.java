@@ -1,9 +1,6 @@
-import org.junit.Test;
-import static org.junit.Assert.assertTrue;
+// sample.test.js
+const sum = require('./sum');
 
-public class AppTest {
-    @Test
-    public void shouldAnswerWithTrue() {
-        assertTrue(true);
-    }
-}
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3);
+});
