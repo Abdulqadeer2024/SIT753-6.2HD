@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS-16.20.1' // Make sure this version is configured in Jenkins
+        nodejs 'NodeJS-16.20.1'
     }
 
     stages {
@@ -16,6 +16,13 @@ pipeline {
             steps {
                 echo 'Installing dependencies...'
                 bat 'npm install'
+            }
+        }
+
+        stage('Lint Code') {
+            steps {
+                echo 'Linting the code...'
+                bat 'npm run lint'
             }
         }
 
@@ -36,45 +43,42 @@ pipeline {
         stage('Code Quality Analysis') {
             steps {
                 echo 'Analyzing code quality...'
-                // Example placeholder, configure as needed
-                bat 'echo "Run your static code analysis tool here"'
+                bat 'sonar-scanner' // Requires SonarQube scanner to be configured
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying to test environment...'
-                // Example placeholder, configure as needed
-                bat 'echo "Deploy your application using your chosen tool"'
+                bat 'docker-compose up -d' // Requires Docker Compose file configured
             }
         }
 
         stage('Release') {
             steps {
                 echo 'Releasing to production environment...'
-                // Example placeholder, configure as needed
-                bat 'echo "Promote the application to production"'
+                bat 'echo "Release commands run here"' // Replace with actual release command
             }
         }
 
         stage('Monitoring and Alerting') {
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Example placeholder, configure as needed
-                bat 'echo "Configure monitoring and alerting tools"'
+                bat 'echo "Setup monitoring and alerting here"' // Replace with actual monitoring setup command
             }
         }
     }
 
     post {
         always {
-            echo 'Pipeline execution complete!'
+            echo 'Cleaning up...'
+            bat 'docker-compose down' // Optional: clean up Docker environment
         }
         success {
             echo 'Pipeline succeeded!'
         }
         failure {
-            echo 'Pipeline failed!'
+            echo 'Pipeline failed. Check logs for details.'
         }
     }
 }
