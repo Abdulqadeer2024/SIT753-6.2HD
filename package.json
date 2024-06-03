@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo 'Running tests... Replace this with your actual test command'",
+    "test": "node selenium-test.js",
     "build": "docker build -t yourusername/blog-app ."
   },
   "keywords": ["blog", "nodejs", "express"],
@@ -21,10 +21,5 @@
   "devDependencies": {
     "jest": "^29.0.1",
     "eslint": "^8.0.0"
-  }
-}
-{
-  "scripts": {
-    "test": "node selenium-test.js"
   }
 }
