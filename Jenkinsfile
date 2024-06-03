@@ -12,7 +12,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing dependencies...'
-                bat 'npm install'  // Installs npm packages
+                bat 'npm ci'  // Installs dependencies using package-lock.json
             }
         }
         stage('Build Project') {
