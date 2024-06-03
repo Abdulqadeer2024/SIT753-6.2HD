@@ -32,6 +32,13 @@ pipeline {
                 bat 'npm test'
             }
         }
+
+        stage('Run Selenium Tests') {
+            steps {
+                echo 'Running Selenium tests...'
+                bat 'npm run selenium-test'
+            }
+        }
     }
 
     post {
