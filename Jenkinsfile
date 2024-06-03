@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     tools {
-        // Refer to the Node.js version configured in Jenkins Global Tool Configurations.
-        nodejs 'NodeJS-16.20.1' 
+        nodejs 'NodeJS-16.20.1' // Make sure this version is configured in Jenkins
     }
 
     stages {
@@ -22,15 +21,8 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                echo 'Attempting to run tests...'
-                script {
-                    try {
-                        bat 'npm test'
-                        echo 'Tests ran successfully!'
-                    } catch (Exception e) {
-                        echo 'No tests specified or tests failed. Continuing build...'
-                    }
-                }
+                echo 'Running tests...'
+                bat 'npm test'
             }
         }
 
@@ -38,6 +30,38 @@ pipeline {
             steps {
                 echo 'Building project...'
                 bat 'npm run build'
+            }
+        }
+
+        stage('Code Quality Analysis') {
+            steps {
+                echo 'Analyzing code quality...'
+                // Example placeholder, configure as needed
+                bat 'echo "Run your static code analysis tool here"'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying to test environment...'
+                // Example placeholder, configure as needed
+                bat 'echo "Deploy your application using your chosen tool"'
+            }
+        }
+
+        stage('Release') {
+            steps {
+                echo 'Releasing to production environment...'
+                // Example placeholder, configure as needed
+                bat 'echo "Promote the application to production"'
+            }
+        }
+
+        stage('Monitoring and Alerting') {
+            steps {
+                echo 'Setting up monitoring and alerting...'
+                // Example placeholder, configure as needed
+                bat 'echo "Configure monitoring and alerting tools"'
             }
         }
     }
