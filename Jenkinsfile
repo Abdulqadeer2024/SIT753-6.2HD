@@ -14,7 +14,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                // Use 'bat' for Batch commands in Windows
+                // Replace sh with bat for Windows compatibility
                 bat 'npm install'
                 dir('client') {
                     bat 'npm install'
@@ -24,7 +24,7 @@ pipeline {
 
         stage('Build Backend') {
             steps {
-                // Use 'bat' instead of 'sh' for Batch commands in Windows
+                // Replace sh with bat for Windows compatibility
                 bat 'npm run build'
             }
         }
@@ -32,6 +32,7 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 dir('client') {
+                    // Replace sh with bat for Windows compatibility
                     bat 'npm run build'
                 }
             }
@@ -39,7 +40,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                // Assuming npm test is set up to run tests in your package.json
+                // Replace sh with bat for Windows compatibility
                 bat 'npm test'
             }
         }
@@ -47,9 +48,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Example of a Windows batch command for deployment
-                // Ensure you have the correct command here for your deployment
-                bat 'echo Deployment step here'
+                // Modify or add Windows compatible deployment commands
+                bat 'echo Deploy command here'
             }
         }
     }
