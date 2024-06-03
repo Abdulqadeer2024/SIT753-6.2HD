@@ -1,13 +1,15 @@
 {
   "name": "blog-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple blog application using Node.js and Express",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "echo 'Running tests... Replace this with your actual test command'",
+    "build": "echo 'Build step completed successfully. Replace this with actual build operations if necessary.'"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["blog", "nodejs", "express"],
+  "author": "Your Name",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
