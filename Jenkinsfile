@@ -1,47 +1,48 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS-16.20.1'
+    }
+
     stages {
         stage('Checkout Code') {
             steps {
-                checkout scm
+                git 'https://github.com/Abdulqadeer2024/SIT753-6.2HD.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                dir('path/to/your/app') { // Adjust the path according to your project structure
-                    script {
-                        // Using script to handle potential npm install issues
-                        def npmInstallStatus = sh(script: 'npm install', returnStatus: true)
-                        if (npmInstallStatus != 0) {
-                            error("Failed to install npm dependencies")
-                        }
-                    }
-                }
+                echo 'Installing dependencies...'
+                bat 'npm install'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Project') {
             steps {
-                script {
-                    // Building Docker image
-                    docker.build('yourusername/blog-app')
-                }
+                echo 'Building project...'
+                bat 'npm run build'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                echo 'Running tests...'
+                bat 'npm test'
             }
         }
     }
 
     post {
         always {
-            echo 'Cleaning up...'
-            // Add post-build cleanup steps if necessary
-        }
-        failure {
-            echo 'The build failed.'
+            echo 'Pipeline execution complete!'
         }
         success {
-            echo 'The build was successful.'
+            echo 'Build and tests succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed. Check logs for details.'
         }
     }
 }
