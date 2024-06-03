@@ -23,3 +23,8 @@
     "eslint": "^8.0.0"
   }
 }
+{
+  "scripts": {
+    "test": "node selenium-test.js"
+  }
+}
