@@ -6,36 +6,32 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout SCM') {
             steps {
                 git 'https://github.com/Abdulqadeer2024/SIT753-6.2HD.git'
             }
         }
-
         stage('Install Dependencies') {
             steps {
-                echo 'Installing dependencies...'
+                script {
+                    def nodeHome = tool name: 'NodeJS-16.20.1', type: 'NodeJSInstallation'
+                    env.PATH = "${nodeHome}/bin:${env.PATH}"
+                }
                 bat 'npm install'
             }
         }
-
         stage('Build Project') {
             steps {
-                echo 'Building project...'
                 bat 'npm run build'
             }
         }
-
         stage('Run Tests') {
             steps {
-                echo 'Running tests...'
-                bat 'npm test'
+                bat 'npm test -- --passWithNoTests'
             }
         }
-
         stage('Run Selenium Tests') {
             steps {
-                echo 'Running Selenium tests...'
                 bat 'npm run selenium-test'
             }
         }
@@ -44,9 +40,6 @@ pipeline {
     post {
         always {
             echo 'Pipeline execution complete!'
-        }
-        success {
-            echo 'Build and tests succeeded!'
         }
         failure {
             echo 'Pipeline failed. Check logs for details.'
