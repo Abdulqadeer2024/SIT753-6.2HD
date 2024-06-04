@@ -2,10 +2,10 @@
   "name": "blog-app",
   "version": "1.0.0",
   "description": "A simple blog application using Node.js and Express",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "jest --coverage --reporters=default --reporters=jest-junit",
+    "start": "node index.js",
+    "test": "jest",
     "build": "docker build -t yourusername/blog-app ."
   },
   "keywords": ["blog", "nodejs", "express"],
@@ -21,15 +21,6 @@
   "devDependencies": {
     "jest": "^29.0.1",
     "eslint": "^8.0.0",
-    "jest-junit": "^14.0.0",
-    "supertest": "^6.2.2",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "@babel/plugin-syntax-jsx": "^7.16.7"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.(js|jsx)$": "babel-jest"
-    }
+    "supertest": "^6.1.6"
   }
 }
