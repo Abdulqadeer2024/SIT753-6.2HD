@@ -1,48 +1,30 @@
 pipeline {
-  agent any
-  
-  tools {
-    nodejs 'NodeJS-16.20.1'
-  }
+    agent any
 
-  stages {
-    stage('Checkout Code') {
-      steps {
-        checkout scm
-      }
-    }
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    // Build the Docker image using no-cache to ensure a clean build
+                    bat "docker build --no-cache -t hello-world-nodejs ."
+                }
+            }
+        }
 
-    stage('Install Dependencies') {
-      steps {
-        echo 'Installing dependencies...'
-        bat 'npm install'
-      }
-    }
-
-    stage('Run Tests') {
-      steps {
-        echo 'Running tests...'
-        bat 'npm test'
-      }
+        stage('Test') {
+            steps {
+                script {
+                    // Run tests using the Docker container
+                    bat "docker run --rm hello-world-nodejs"
+                }
+            }
+        }
     }
 
-    stage('Build Project') {
-      steps {
-        echo 'Building project...'
-        bat 'npm run build'
-      }
+    post {
+        always {
+            echo 'This will always run'
+            echo 'Build process completed'
+        }
     }
-  }
-
-  post {
-    always {
-      echo 'Pipeline execution complete!'
-    }
-    success {
-      echo 'All stages succeeded!'
-    }
-    failure {
-      echo 'One or more stages failed. Check logs for details.'
-    }
-  }
 }
